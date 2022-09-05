@@ -78,4 +78,56 @@ public class NewEditModeTest
         //Assert
         Assert.AreEqual(expected, inventory.Gold);
     }
+
+
+
+
+    [Test]
+    [Category("Inventory")]
+    public void AddItem_True_ItemAddedToInventory()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Item item = new Item();
+
+        //Act
+        inventory.AddItem(item);
+
+        //Assert
+        Assert.AreEqual(item, inventory.Items[0]);
+    }
+
+    [Test]
+    [Category("Inventory")]
+    public void RemoveItem_True_ItemRemovedFromInventory()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        Item item = new Item();
+
+        //Act
+        inventory.AddItem(item);
+        inventory.RemoveItem(item);
+
+        //Assert
+        Assert.AreEqual(0, inventory.Items.Count);
+    }
+
+    [Test]
+    [Category("Inventory")]
+    public void CheckForEmptySlot_True_EmptySlotAvailable()
+    {
+        //Arrange
+        Inventory inventory = new Inventory();
+        inventory.MaxSize = 5;
+
+        //Act
+        for (int i = 0; i < 4; i++)
+        {
+            inventory.AddItem(new Item());
+        }
+
+        //Assert
+        Assert.IsTrue(inventory.CheckForEmptySlot());
+    }
 }
